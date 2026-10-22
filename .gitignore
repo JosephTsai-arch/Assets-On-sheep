@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Production builds & caches
+build/
+dist/
+coverage/
+.cache/
+*.log
+
+# Environment variables & secrets
+.env*
+!.env.example
+.system_config.json
+
+# Local server database caches & private dumps
+data/
+
+# AI Studio platform internal files
+.aistudio/
+
+# Lock files if not using bun
+bun.lock
+
+# Operating System & IDE artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

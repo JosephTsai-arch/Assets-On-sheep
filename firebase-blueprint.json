@@ -1,0 +1,297 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with authentication and role information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "avatarUrl": { "type": "string", "maxLength": 500 },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "member"] },
+        "lineUserId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "email", "name", "role", "createdAt"]
+    },
+    "Ledger": {
+      "title": "Ledger",
+      "description": "Personal or shared accounting ledger",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "currency": { "type": "string", "maxLength": 10 },
+        "isShared": { "type": "boolean" },
+        "creatorId": { "type": "string", "maxLength": 128 },
+        "memberIds": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "currency", "isShared", "creatorId", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial income, expense, or transfer record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "ledgerId": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["expense", "income", "transfer"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "categoryId": { "type": "string", "maxLength": 128 },
+        "categoryName": { "type": "string", "maxLength": 100 },
+        "accountId": { "type": "string", "maxLength": 128 },
+        "targetAccountId": { "type": "string", "maxLength": 128 },
+        "subAccountId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 30 },
+        "title": { "type": "string", "maxLength": 200 },
+        "note": { "type": "string", "maxLength": 500 },
+        "payerId": { "type": "string", "maxLength": 128 },
+        "payerName": { "type": "string", "maxLength": 100 },
+        "splitDetails": { "type": "array" },
+        "transferPairId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "ledgerId", "type", "amount", "currency", "date", "title", "createdAt"]
+    },
+    "AssetAccount": {
+      "title": "AssetAccount",
+      "description": "Financial asset account such as cash, bank, or credit card",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["cash", "bank", "credit_card", "e_wallet"] },
+        "balance": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "subAccounts": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "type", "balance", "currency", "createdAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "User transaction category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 50 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "type": { "type": "string", "enum": ["expense", "income"] },
+        "color": { "type": "string", "maxLength": 30 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "type", "createdAt"]
+    },
+    "Budget": {
+      "title": "Budget",
+      "description": "Monthly or category budget tracker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "categoryId": { "type": "string", "maxLength": 128 },
+        "month": { "type": "string", "maxLength": 10 },
+        "amount": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "month", "amount", "createdAt"]
+    },
+    "SinkingFund": {
+      "title": "SinkingFund",
+      "description": "Dynamic sinking fund and recurring expense scheduler",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "targetAmount": { "type": "number" },
+        "accumulatedAmount": { "type": "number" },
+        "nextDueDate": { "type": "string", "maxLength": 20 },
+        "cycle": { "type": "string", "enum": ["monthly", "quarterly", "yearly"] },
+        "targetAccountId": { "type": "string", "maxLength": 128 },
+        "categoryId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "targetAmount", "accumulatedAmount", "nextDueDate", "cycle", "createdAt"]
+    },
+    "Friend": {
+      "title": "Friend",
+      "description": "Independent user friend or isolated dummy member",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "friendUserId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "avatarUrl": { "type": "string", "maxLength": 500 },
+        "isDummy": { "type": "boolean" },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "deletedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "isDummy", "createdAt"]
+    },
+    "SheepPost": {
+      "title": "SheepPost",
+      "description": "Community wall post with likes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorAvatar": { "type": "string", "maxLength": 500 },
+        "content": { "type": "string", "maxLength": 1000 },
+        "likesCount": { "type": "number" },
+        "likedUserIds": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "authorName", "content", "createdAt"]
+    },
+    "HealthReport": {
+      "title": "HealthReport",
+      "description": "Economics and accounting based AI financial health assessment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 100 },
+        "userAvatar": { "type": "string", "maxLength": 500 },
+        "score": { "type": "number" },
+        "engelCoefficient": { "type": "number" },
+        "fixedExpenseRatio": { "type": "number" },
+        "savingsHealthEvaluation": { "type": "string", "maxLength": 500 },
+        "summary": { "type": "string", "maxLength": 2000 },
+        "recommendations": { "type": "array" },
+        "month": { "type": "string", "maxLength": 10 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "score", "summary", "createdAt"]
+    },
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "Global encrypted configuration for external APIs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "lineChannelSecret": { "type": "string", "maxLength": 200 },
+        "lineChannelAccessToken": { "type": "string", "maxLength": 500 },
+        "liffId": { "type": "string", "maxLength": 100 },
+        "geminiApiKey": { "type": "string", "maxLength": 200 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id"]
+    },
+    "RescueCode": {
+      "title": "RescueCode",
+      "description": "Cryptographic emergency account recovery code",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "code": { "type": "string", "maxLength": 16 },
+        "targetUserId": { "type": "string", "maxLength": 128 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "expiresAt": { "type": "string" },
+        "used": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "code", "targetUserId", "expiresAt", "used", "createdAt"]
+    },
+    "AccountingReminder": {
+      "title": "AccountingReminder",
+      "description": "User daily accounting reminder alarm configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "enabled": { "type": "boolean" },
+        "time": { "type": "string", "maxLength": 10 },
+        "frequency": { "type": "string", "enum": ["daily", "weekdays", "weekends", "custom"] },
+        "customDays": { "type": "array" },
+        "message": { "type": "string", "maxLength": 200 },
+        "lastNotifiedDate": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "enabled", "time", "frequency", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/ledgers/{ledgerId}": {
+      "schema": "Ledger",
+      "description": "Ledgers"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Financial transactions"
+    },
+    "/assetAccounts/{accountId}": {
+      "schema": "AssetAccount",
+      "description": "Asset accounts and sub-accounts"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Transaction categories"
+    },
+    "/budgets/{budgetId}": {
+      "schema": "Budget",
+      "description": "Category and monthly budgets"
+    },
+    "/sinkingFunds/{fundId}": {
+      "schema": "SinkingFund",
+      "description": "Sinking funds and recurring payments"
+    },
+    "/friends/{friendId}": {
+      "schema": "Friend",
+      "description": "Friends and dummy members"
+    },
+    "/sheepPosts/{postId}": {
+      "schema": "SheepPost",
+      "description": "Community sheep message wall"
+    },
+    "/healthReports/{reportId}": {
+      "schema": "HealthReport",
+      "description": "Financial health assessment reports"
+    },
+    "/systemConfigs/{configId}": {
+      "schema": "SystemConfig",
+      "description": "Global system configurations"
+    },
+    "/system_configs/{configId}": {
+      "schema": "SystemConfig",
+      "description": "Global system configurations alias"
+    },
+    "/rescueCodes/{codeId}": {
+      "schema": "RescueCode",
+      "description": "Emergency recovery codes"
+    },
+    "/reminders/{reminderId}": {
+      "schema": "AccountingReminder",
+      "description": "User daily accounting reminder alarms"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "資產上羊 (AssetOnSheep) 多帳號智慧記帳系統",
+  "description": "資產上羊 (AssetOnSheep) 多帳號智慧記帳系統，整合 Google/LINE 雙向驗證、多幣別帳本、AA 智慧平帳、動態沉澱基金與 Gemini AI 財務健檢。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

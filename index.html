@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23FEF08A' stroke='%23D97706' stroke-width='4'/%3E%3Cpolygon points='38,28 32,12 44,18 50,8 56,18 68,12 62,28' fill='%23F59E0B' stroke='%2392400E' stroke-width='2'/%3E%3Ccircle cx='50' cy='52' r='28' fill='%23FFFFFF' stroke='%23CBD5E1' stroke-width='2'/%3E%3Cellipse cx='38' cy='48' rx='4' ry='6' fill='%230F172A'/%3E%3Cellipse cx='62' cy='48' rx='4' ry='6' fill='%230F172A'/%3E%3Ccircle cx='37' cy='46' r='1.5' fill='%23FFFFFF'/%3E%3Ccircle cx='61' cy='46' r='1.5' fill='%23FFFFFF'/%3E%3Cellipse cx='32' cy='54' rx='3' ry='2' fill='%23FB7185'/%3E%3Cellipse cx='68' cy='54' rx='3' ry='2' fill='%23FB7185'/%3E%3Cpath d='M47 54 Q50 57 53 54' stroke='%2378350F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>資產上羊 (AssetOnSheep) 多帳號智慧記帳系統</title>
+    <meta name="description" content="資產上羊 (AssetOnSheep) 多帳號智慧記帳系統，整合 Google/LINE 雙向驗證、多幣別帳本、AA 智慧平帳、動態沉澱基金與 Gemini AI 財務健檢。" />
+    <meta property="og:title" content="資產上羊 (AssetOnSheep) 多帳號智慧記帳系統" />
+    <meta property="og:description" content="資產上羊 (AssetOnSheep) 多帳號智慧記帳系統，整合 Google/LINE 雙向驗證、多幣別帳本、AA 智慧平帳、動態沉澱基金與 Gemini AI 財務健檢。" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // AI Studio preview environment constraint: Ignore Vite HMR WebSocket errors
+      (function() {
+        function isViteHmrError(err) {
+          if (!err) return false;
+          var msg = (err.message || String(err)).toLowerCase();
+          var stack = (err.stack || '').toLowerCase();
+          return (
+            msg.indexOf('websocket') !== -1 ||
+            msg.indexOf('ws:') !== -1 ||
+            msg.indexOf('vite:ws') !== -1 ||
+            stack.indexOf('@vite/client') !== -1 ||
+            stack.indexOf('client.mjs') !== -1 ||
+            stack.indexOf('bundleddevclient') !== -1
+          );
+        }
+        window.addEventListener('unhandledrejection', function(event) {
+          if (isViteHmrError(event.reason)) {
+            event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            if (event.stopPropagation) event.stopPropagation();
+          }
+        }, true);
+        window.addEventListener('error', function(event) {
+          var fn = (event.filename || '').toLowerCase();
+          if (
+            fn.indexOf('@vite/client') !== -1 ||
+            fn.indexOf('client.mjs') !== -1 ||
+            isViteHmrError(event.error) ||
+            isViteHmrError(event.message)
+          ) {
+            event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            if (event.stopPropagation) event.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

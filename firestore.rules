@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isUser(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function isSuperAdmin() {
+      return (
+        isSignedIn() && (
+          request.auth.token.super_admin == true ||
+          request.auth.token.role == 'super_admin'
+        )
+      );
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    match /ledgers/{ledgerId} {
+      allow read, write: if true;
+    }
+
+    match /transactions/{transactionId} {
+      allow read, write: if true;
+    }
+
+    match /assetAccounts/{accountId} {
+      allow read, write: if true;
+    }
+
+    match /categories/{categoryId} {
+      allow read, write: if true;
+    }
+
+    match /budgets/{budgetId} {
+      allow read, write: if true;
+    }
+
+    match /sinkingFunds/{fundId} {
+      allow read, write: if true;
+    }
+
+    match /friends/{friendId} {
+      allow read, write: if true;
+    }
+
+    match /sheepPosts/{postId} {
+      allow read, write: if true;
+    }
+
+    match /healthReports/{reportId} {
+      allow read, write: if true;
+    }
+
+    match /systemConfigs/{configId} {
+      allow read, write: if true;
+    }
+
+    match /system_configs/{configId} {
+      allow read, write: if true;
+    }
+
+    match /system/{configId} {
+      allow read, write: if true;
+    }
+
+    match /rescueCodes/{codeId} {
+      allow read, write: if true;
+    }
+
+    match /rescue_codes/{codeId} {
+      allow read, write: if true;
+    }
+
+    match /pending_transactions/{txId} {
+      allow read, write: if true;
+    }
+
+    match /pending_batches/{batchId} {
+      allow read, write: if true;
+    }
+
+    match /line_user_states/{stateId} {
+      allow read, write: if true;
+    }
+
+    match /announcements/{announcementId} {
+      allow read, write: if true;
+      match /reads/{userId} {
+        allow read, write: if true;
+      }
+    }
+
+    match /announcement_reads/{readId} {
+      allow read, write: if true;
+    }
+
+    match /user_tour_progress/{userId} {
+      allow read, write: if true;
+    }
+
+    match /reminders/{reminderId} {
+      allow read, write: if true;
+    }
+  }
+}
